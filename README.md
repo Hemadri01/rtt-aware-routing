@@ -8,7 +8,12 @@ Datacenter networks provide several routes between servers. ECMP assigns each co
 
 The original proposal has the leaf and spine switches write and read TCP timestamp information for the routing measurements. I simplified the ns-3 implementation by carrying timestamps and path information in packet tags, allowing me to study the RTT estimator and routing policies without first implementing that switch-side TCP timestamp handling. The prototype combines smoothed RTT estimates with probabilistic flowlet selection and supports fixed or RTT-derived timeouts. It runs in ns-3.48. The first 10 Gb/s ENT results compare CONGA with ECMP; the RTT evaluation is ongoing.
 
-[Design](#how-the-routing-works) · [Code](#reading-the-code) · [Experiments](#experimental-design) · [Results](#results) · [Validation](#engineering-and-validation) · [Research direction](#why-i-did-not-pursue-publication)
+- [Design](#how-the-routing-works)
+- [Code](#reading-the-code)
+- [Experiments](#experimental-design)
+- [Results](#results)
+- [Validation](#engineering-and-validation)
+- [Research direction](#why-i-did-not-pursue-publication)
 
 ## From thesis to implementation
 
@@ -104,9 +109,7 @@ The tag-based measurement proceeds as follows:
 
 For this implementation, the sample is:
 
-$$
-r_{i,\mathrm{sample}} = t_{\mathrm{feedback}} - t_{\mathrm{send}}.
-$$
+$$r_{i,\mathrm{sample}} = t_{\mathrm{feedback}} - t_{\mathrm{send}}.$$
 
 Here, $t_{\mathrm{send}}$ is the time the data packet leaves the source leaf, and $t_{\mathrm{feedback}}$ is the time the tagged ACK returns there. The sample therefore includes the outward journey from that leaf, destination-server/ACK handling, and the return journey to the leaf. It is not the RTT estimate maintained by the sending server's TCP socket.
 
@@ -126,21 +129,13 @@ The routing module smooths successive samples using an exponentially weighted mo
 
 The update is:
 
-$$
-\hat r_i^{(t)}
-=
-(1-\alpha)\hat r_i^{(t-1)}
-+
-\alpha r_i^{(t)}.
-$$
+$$\hat r_i^{(t)} = (1-\alpha)\hat r_i^{(t-1)} + \alpha r_i^{(t)}.$$
 
 The main experiments use $\alpha=0.125$. Each update therefore retains 87.5% of the previous estimate and assigns 12.5% to the new sample. A larger value reacts faster to changing delay; a smaller value retains more history and suppresses more short-term variation.
 
 For example, a previous estimate of 100 us and a new sample of 180 us produce:
 
-$$
-\hat r_i^{(t)} = 0.875(100)+0.125(180)=110\ \mu s.
-$$
+$$\hat r_i^{(t)} = 0.875(100)+0.125(180)=110\ \mu s.$$
 
 Before an uplink has a measurement, `GetEffectiveRtt` returns its configured base RTT. The first sample initializes the smoothed estimate directly; subsequent samples use the EWMA. Thus, startup behavior depends on the configured base estimates, while later decisions use measured history.
 
@@ -150,27 +145,17 @@ A **flowlet** is a burst of packets from a flow, separated from the next burst b
 
 Let:
 
-$$
-\Delta t = t_{\mathrm{current}}-t_{\mathrm{previous}}
-$$
+$$\Delta t = t_{\mathrm{current}}-t_{\mathrm{previous}}$$
 
 be the time between consecutive packets observed for a tracked flow. If the existing flowlet is still active, the module retains its selected port and updates its last activity time. A new flow or an expired flowlet triggers path selection.
 
 The fixed-timeout configuration uses:
 
-$$
-\tau_{\mathrm{fixed}}=500\ \mu s,
-\qquad
-\text{new flowlet if }\Delta t>\tau_{\mathrm{fixed}}.
-$$
+$$\tau_{\mathrm{fixed}}=500\ \mu s,\qquad\text{new flowlet if }\Delta t>\tau_{\mathrm{fixed}}.$$
 
 The RTT-derived configuration uses the effective RTT estimate of the current uplink:
 
-$$
-\tau_{\mathrm{RTT}}=\hat r_{\mathrm{current}},
-\qquad
-\text{new flowlet if }\Delta t>\tau_{\mathrm{RTT}}.
-$$
+$$\tau_{\mathrm{RTT}}=\hat r_{\mathrm{current}},\qquad\text{new flowlet if }\Delta t>\tau_{\mathrm{RTT}}.$$
 
 Before measurements exist, the effective estimate is the configured base RTT described above. At a gap equal to the timeout, the existing flowlet is retained.
 
@@ -182,37 +167,23 @@ The primary policy makes a **probabilistic** decision from the candidate RTT est
 
 Suppose there are $n$ candidate estimates:
 
-$$
-\hat r_1,\hat r_2,\ldots,\hat r_n.
-$$
+$$\hat r_1,\hat r_2,\ldots,\hat r_n.$$
 
 First calculate their sum:
 
-$$
-R=\sum_{i=1}^{n}\hat r_i.
-$$
+$$R=\sum_{i=1}^{n}\hat r_i.$$
 
 Each candidate receives a complement score:
 
-$$
-s_i=R-\hat r_i.
-$$
+$$s_i=R-\hat r_i.$$
 
 A lower RTT produces a larger score. Normalize the scores to obtain the selection probabilities:
 
-$$
-S=\sum_{j=1}^{n}s_j,
-\qquad
-p_i=\frac{s_i}{S}.
-$$
+$$S=\sum_{j=1}^{n}s_j,\qquad p_i=\frac{s_i}{S}.$$
 
 For $n>1$ and $R>0$, the total score can also be written as:
 
-$$
-S=(n-1)R,
-\qquad
-p_i=\frac{R-\hat r_i}{(n-1)R}.
-$$
+$$S=(n-1)R,\qquad p_i=\frac{R-\hat r_i}{(n-1)R}.$$
 
 This makes the probabilities sum to one. Equal positive estimates produce $p_i=1/n$. If the total score is zero, the implementation falls back to uniform selection; with one candidate, that candidate is selected.
 
@@ -307,9 +278,7 @@ Random-Two is an expected-time statement because the implementation redraws the 
 
 With constant-time packet bookkeeping, Weighted RTT's abstract total work is:
 
-$$
-T(P,m,n)=O(P+mn).
-$$
+$$T(P,m,n)=O(P+mn).$$
 
 The EWMA arithmetic for one sample is constant-time. For a fixed small $n$, the expression is linear in processed packets and flowlets, but that does not imply the same processing cost as ECMP.
 
