@@ -1,0 +1,2 @@
+CDF,Seed,TargetLoad,ServerCount,SpineCount,LeafCount,LinkCount,SpineLeafCapacityGbps,LeafServerCapacityGbps,LaunchStartS,LaunchEndS,CdfMeanBytes,RequestRateFlowsPerSecondPerServer,ExpectedAggregateBps,GeneratedFlows,GeneratedBytes,RealizedAggregateBps,FirstStartS,LastStartS
+ENT,12448,0.29999999999999999,4,2,2,1,10,10,0,5,1538831.5999650012,121.84569124020098,12000000000,4795,10098409605,16157455368,0.0072746375763028887,4.9869763198528068
