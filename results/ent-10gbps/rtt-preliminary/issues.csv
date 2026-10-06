@@ -1,0 +1,9 @@
+scenario,workload,load,algorithm,category,trace_index,issue
+asym,ENT,1,weighted_fixed,utilization,,Leaf 0 -> Spine 0: CSV reports 18.11%; calculated 36.22% using 5 Gb/s and the configured window
+asym,ENT,1,weighted_adaptive,utilization,,Leaf 0 -> Spine 0: CSV reports 19.33%; calculated 38.65% using 5 Gb/s and the configured window
+asym,ENT,1,random_two_adaptive,utilization,,Leaf 0 -> Spine 0: CSV reports 18.74%; calculated 37.48% using 5 Gb/s and the configured window
+asym,ENT,2,weighted_fixed,utilization,,Leaf 0 -> Spine 0: CSV reports 7.79%; calculated 15.58% using 5 Gb/s and the configured window
+asym,ENT,2,weighted_adaptive,utilization,,Leaf 0 -> Spine 0: CSV reports 16.25%; calculated 32.5% using 5 Gb/s and the configured window
+asym,ENT,2,random_two_adaptive,utilization,,Leaf 0 -> Spine 0: CSV reports 3.29%; calculated 6.59% using 5 Gb/s and the configured window
+asym,ENT,3,weighted_fixed,utilization,,Leaf 0 -> Spine 0: CSV reports 15.73%; calculated 31.46% using 5 Gb/s and the configured window
+asym,ENT,3,random_two_adaptive,utilization,,Leaf 0 -> Spine 0: CSV reports 11.51%; calculated 23.01% using 5 Gb/s and the configured window

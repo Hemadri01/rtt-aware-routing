@@ -1,8 +1,8 @@
 # ENT results at 10 Gb/s
 
-These files accompany the CONGA–ECMP results in the [project README](../../README.md#results). They contain the completed symmetric sweep at loads 0.1–0.9 and asymmetric sweep at loads 0.1–0.7. RTT results are pending.
+These files accompany the ENT results in the [project README](../../README.md#results). The CONGA–ECMP baseline covers symmetric loads 0.1–0.9 and asymmetric loads 0.1–0.7. The [initial RTT comparison](rtt-preliminary/) covers the available loads 0.1–0.3 in both topologies.
 
-The figures and CSV summaries are unchanged copies of exports from `8_hosts_v9(prob1)/compare_conga_ecmp_cdf_10gbps_5s.ipynb` in the full simulator repository, with `WORKLOAD = "ENT"`. Their source directory is:
+The CONGA–ECMP baseline figures and CSV summaries are unchanged copies of exports from `8_hosts_v9(prob1)/compare_conga_ecmp_cdf_10gbps_5s.ipynb` in the full simulator repository, with `WORKLOAD = "ENT"`. Their source directory is:
 
 ```text
 8_hosts_v9(prob1)/readme_figures/conga_ecmp_cdf_10gbps_5s/ENT/
@@ -15,6 +15,7 @@ The figures and CSV summaries are unchanged copies of exports from `8_hosts_v9(p
 | [run_summary.csv](run_summary.csv) | One row per algorithm, topology, and load: 32 runs in total |
 | [issues.csv](issues.csv) | Exported validation issues; header only because none were reported |
 | [manifests/](manifests/) | Input generation settings, seeds, flow counts, requested load, and realized offered traffic |
+| [rtt-preliminary/](rtt-preliminary/) | Initial RTT versus CONGA/ECMP mean-FCT figures and exported summaries for available loads |
 
 ## Measurement definitions
 

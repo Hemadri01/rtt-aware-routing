@@ -1,0 +1,7 @@
+scenario,workload,load,available_algorithms,compared_algorithms,input_flows,shared_flows,excluded_flows,status,reason
+sym,ENT,1,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,1678,1678,0,complete cohort,
+sym,ENT,2,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,3211,3211,0,complete cohort,
+sym,ENT,3,ecmp;conga;weighted_fixed;random_two_adaptive,ecmp;conga;weighted_fixed;random_two_adaptive,4795,4795,0,complete cohort,
+asym,ENT,1,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,1678,1678,0,complete cohort,
+asym,ENT,2,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,ecmp;conga;weighted_fixed;weighted_adaptive;random_two_adaptive,3211,3211,0,complete cohort,
+asym,ENT,3,ecmp;conga;weighted_fixed;random_two_adaptive,ecmp;conga;weighted_fixed;random_two_adaptive,4795,4795,0,complete cohort,

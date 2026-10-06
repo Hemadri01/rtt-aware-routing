@@ -367,6 +367,8 @@ The helper installs the module through ns-3's routing-helper interface. In the f
 
 All simulations were run on my personal **Dell Vostro laptop with an Intel Core i5-1235U processor and 16 GB of RAM**. These are the host machine's specifications; the simulated network is configured separately below.
 
+The current 10 Gb/s RTT experiments are taking **more than 24 hours of wall-clock time per simulation** on this laptop, despite a five-second traffic launch window. This limits how quickly I can complete the load sweeps.
+
 The current topology has **two leaf switches, two spine switches, and four servers per leaf**. Each source leaf can reach the other leaf through either spine.
 
 ~~~mermaid
@@ -417,11 +419,11 @@ Earlier experiments used 100 Mb/s links and TrafPy's private-enterprise, commerc
 
 **Application FCT** runs from the scheduled transfer start until the requested payload has arrived. Each transfer is checked against its input size. Incomplete transfers are reported separately and have no completion FCT; their exclusion from FCT statistics must be considered alongside the delivery results.
 
-The analysis compares mean and tail FCT, forward TCP packet loss, application completion, queue drops, and link utilization. These measure different aspects of performance: a packet can be lost and retransmitted while its application still finishes correctly. The planned RTT comparisons will evaluate the routing rule with tag-based feedback. They will not measure a deployed TCP-timestamp implementation. Repeated seeds and uncertainty estimates remain part of the validation plan.
+The analysis compares mean and tail FCT, forward TCP packet loss, application completion, queue drops, and link utilization. These measure different aspects of performance: a packet can be lost and retransmitted while its application still finishes correctly. The RTT comparisons evaluate the routing rule with tag-based feedback. They do not measure a deployed TCP-timestamp implementation. Repeated seeds and uncertainty estimates remain part of the validation plan.
 
 ## Results
 
-The completed **enterprise (ENT)** experiments compare CONGA with stable per-flow ECMP on the topology above. These establish the comparison baselines for the RTT experiments. **RTT results will be added after those runs and delivery checks are complete.**
+The completed **enterprise (ENT)** experiments compare CONGA with stable per-flow ECMP on the topology above. These establish the comparison baselines for the RTT experiments. An initial RTT comparison at the available loads follows below.
 
 Both algorithms delivered every requested payload in all **32 runs**, with no missing, undersized, or oversized flows. This covers 73,256 transfers per algorithm in the symmetric sweep and 45,356 per algorithm in the asymmetric sweep. The FCT comparisons therefore include every input flow.
 
@@ -478,6 +480,24 @@ The root FqCoDel counters record 26 drops at asymmetric ECMP load 0.6 and 311 at
 The [run summary](results/ent-10gbps/run_summary.csv) contains completion, loss, and queue-drop counts for every case. [Result notes](results/ent-10gbps/README.md) identify the source notebook and supporting files.
 
 These results show a useful CONGA advantage in this ENT setup and provide completed baselines for evaluating RTT routing. They cover one trace and one routing run per load, two candidate paths, and a five-second launch window. Repeated seeds, larger fabrics, and the remaining workloads are needed to establish how consistently the gains carry over. This is not yet a reproduction of the original CONGA paper's evaluation.
+
+### Initial RTT results at available loads
+
+The RTT sweep currently covers **ENT target loads 0.1–0.3** in both topologies. Weighted RTT with a fixed 500-us flowlet timeout and Random-Two with an RTT-derived timeout have completed all three loads; Weighted RTT with an RTT-derived timeout has completed loads 0.1–0.2. Each RTT policy is compared with CONGA and ECMP using the same input trace at the same load and topology. The mean-FCT plots below pool all flow sizes. They divide each algorithm's mean application FCT by CONGA's mean over the same flows, so CONGA is the reference at 1.
+
+![ENT symmetric fabric: overall mean application FCT for available RTT policies, CONGA, and ECMP at loads 0.1–0.3](results/ent-10gbps/rtt-preliminary/sym/overall_mean_fct_vs_load.png)
+
+*Symmetric fabric. Missing policy points have no completed run; the lines do not represent results at higher loads.*
+
+![ENT asymmetric fabric: overall mean application FCT for available RTT policies, CONGA, and ECMP at loads 0.1–0.3](results/ent-10gbps/rtt-preliminary/asym/overall_mean_fct_vs_load.png)
+
+*Asymmetric fabric. The reduced Leaf 0–Spine 0 link remains at 5 Gb/s.*
+
+Among the policies with results at each load, CONGA has the lowest overall mean FCT in five of the six topology/load combinations. At asymmetric load 0.2, RTT Random-Two is the exception: **1.66 ms** versus **1.77 ms** for CONGA and **2.21 ms** for ECMP. Its p99 FCT there is **58.2 ms**, slightly above CONGA's **55.8 ms**. At symmetric load 0.3, CONGA averages **3.36 ms**, compared with **3.91 ms** for the best available RTT policy and **4.20 ms** for ECMP.
+
+All **16 available RTT runs** delivered every requested payload exactly, with no recorded forward TCP packet loss or queue drops. The 12 matching CONGA/ECMP runs also passed these checks; no flows were excluded from the FCT comparisons. The [RTT comparison summary](results/ent-10gbps/rtt-preliminary/fct_summary.csv) and [validation counts](results/ent-10gbps/rtt-preliminary/run_summary.csv) retain the values for every available case.
+
+This is a first look at low loads, using one trace and one run per case. It does not establish how the policies compare as congestion rises. The RTT CSV logger also understates utilization on the 5 Gb/s link because it divides by 10 Gb/s; the comparison notebook recalculates utilization from recorded bytes and the correct link rate. This reporting issue does not affect the application FCT figures above. The remaining loads and repeated seeds are still needed before drawing general performance conclusions.
 
 ## Engineering and validation
 
