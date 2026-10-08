@@ -62,6 +62,8 @@ flowchart LR
     end
 
     forwarding -.->|Returning ACK| measurement
+    measurement -.->|Path choice| forwarding
+    measurement -.->|Adaptive timeout| forwarding
 
     classDef decision fill:#fff3cd,stroke:#997404,color:#332701;
     classDef routing fill:#dbeafe,stroke:#2563eb,color:#172554;
