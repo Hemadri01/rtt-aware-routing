@@ -1,6 +1,6 @@
 # ENT results at 10 Gb/s
 
-These files accompany the ENT results in the [project README](../../README.md#results). The CONGA–ECMP baseline covers symmetric loads 0.1–0.9 and asymmetric loads 0.1–0.7. The [initial RTT comparison](rtt-preliminary/) covers the available loads 0.1–0.3 in both topologies.
+These files accompany the ENT results in the [project README](../../README.md#results). The CONGA–ECMP baseline covers symmetric loads 0.1–0.9 and asymmetric loads 0.1–0.7. The [full RTT comparison](rtt-full/README.md) covers the same loads for all five policies. The earlier [partial RTT snapshot](rtt-preliminary/) is retained for reference.
 
 The CONGA–ECMP baseline figures and CSV summaries are unchanged copies of exports from `8_hosts_v9(prob1)/compare_conga_ecmp_cdf_10gbps_5s.ipynb` in the full simulator repository, with `WORKLOAD = "ENT"`. Their source directory is:
 
@@ -15,7 +15,8 @@ The CONGA–ECMP baseline figures and CSV summaries are unchanged copies of expo
 | [run_summary.csv](run_summary.csv) | One row per algorithm, topology, and load: 32 runs in total |
 | [issues.csv](issues.csv) | Exported validation issues; header only because none were reported |
 | [manifests/](manifests/) | Input generation settings, seeds, flow counts, requested load, and realized offered traffic |
-| [rtt-preliminary/](rtt-preliminary/) | Initial RTT versus CONGA/ECMP mean-FCT figures and exported summaries for available loads |
+| [rtt-full/](rtt-full/README.md) | Complete RTT, CONGA, and ECMP comparison: figures, summaries, captions, and validation |
+| [rtt-preliminary/](rtt-preliminary/) | Historical low-load RTT snapshot |
 
 ## Measurement definitions
 

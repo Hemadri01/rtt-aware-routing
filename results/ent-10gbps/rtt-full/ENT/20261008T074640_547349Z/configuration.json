@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "workload": "ENT",
+  "scenarios": [
+    "sym",
+    "asym"
+  ],
+  "loads": {
+    "sym": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "asym": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "algorithms": [
+    "ecmp",
+    "conga",
+    "weighted_fixed",
+    "weighted_adaptive",
+    "random_two_adaptive"
+  ],
+  "policies": {
+    "ecmp": {
+      "family": "conga",
+      "suffix": "ECMP",
+      "label": "ECMP",
+      "color": "#555555",
+      "marker": "o",
+      "linestyle": "-"
+    },
+    "conga": {
+      "family": "conga",
+      "suffix": "Conga",
+      "label": "CONGA",
+      "color": "#0072B2",
+      "marker": "s",
+      "linestyle": "-"
+    },
+    "weighted_fixed": {
+      "family": "rtt",
+      "suffix": "WEIGHTED_ECMP_timeout_true_RTT",
+      "label": "Weighted RTT / fixed",
+      "color": "#009E73",
+      "marker": "^",
+      "linestyle": "-"
+    },
+    "weighted_adaptive": {
+      "family": "rtt",
+      "suffix": "WEIGHTED_ECMP_timeout_false_RTT",
+      "label": "Weighted RTT / adaptive",
+      "color": "#8B5FC7",
+      "marker": "D",
+      "linestyle": "--"
+    },
+    "random_two_adaptive": {
+      "family": "rtt",
+      "suffix": "POWER_OF_2_RANDOM_timeout_false_RTT",
+      "label": "Random-Two / adaptive",
+      "color": "#D55E00",
+      "marker": "v",
+      "linestyle": "-."
+    }
+  },
+  "servers_per_leaf": 4,
+  "leaves": 2,
+  "spines": 2,
+  "input_dir": "cdf_traffic_10gbps_5s",
+  "run_label_utc": "20261008T074640_547349Z",
+  "utilization_window_s": [
+    0.0,
+    5.0
+  ],
+  "fabric_capacity_gbps": 10.0,
+  "asymmetric_link": [
+    0,
+    0
+  ],
+  "asymmetric_capacity_gbps": 5.0,
+  "heatmap_max_percent": 100.0,
+  "fct_metric": "application completion time from scheduled input start",
+  "cohort": "every input flow, verified and shared by every selected policy",
+  "normalized_mean": "ratio of arithmetic means over the same cohort",
+  "normalized_p99": "ratio of linear sample 0.99 quantiles over the same cohort",
+  "size_boundaries_bytes": [
+    102400,
+    1048576
+  ],
+  "per_load_figures": true,
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "png_dpi": 200,
+  "python_version": "3.13.5",
+  "numpy_version": "2.1.3",
+  "matplotlib_version": "3.10.0",
+  "validation_helper_sha256": "ac20f675d263cdab96ed3f2d09f56f25bd7ac6cc1b8a334d27e83154002b217d",
+  "settings_provenance": "Declared analysis settings and input manifests; CSVs do not record the full run command."
+}

@@ -1,0 +1,81 @@
+scenario,load,algorithm,workload,label,input_flows,exact_flows,verified_flows,undersized_flows,oversized_flows,missing_flows,invalid_flows,flows_with_issues,unknown_received_flows,exact_percent,missing_payload_bytes,known_missing_payload_bytes,forward_tx_packets,forward_lost_packets,forward_loss_percent,root_queue_disc_drops,device_queue_drops,root_drops_per_delivered_mib,file_issue_count,report
+sym,1,ecmp,ENT,ECMP,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_1_ECMP.csv
+sym,1,conga,ENT,CONGA,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_1_Conga.csv
+sym,1,weighted_fixed,ENT,Weighted RTT / fixed,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_1_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,1,weighted_adaptive,ENT,Weighted RTT / adaptive,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_1_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,1,random_two_adaptive,ENT,Random-Two / adaptive,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_1_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,2,ecmp,ENT,ECMP,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_2_ECMP.csv
+sym,2,conga,ENT,CONGA,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_2_Conga.csv
+sym,2,weighted_fixed,ENT,Weighted RTT / fixed,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_2_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,2,weighted_adaptive,ENT,Weighted RTT / adaptive,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_2_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,2,random_two_adaptive,ENT,Random-Two / adaptive,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_2_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,3,ecmp,ENT,ECMP,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_3_ECMP.csv
+sym,3,conga,ENT,CONGA,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_3_Conga.csv
+sym,3,weighted_fixed,ENT,Weighted RTT / fixed,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_3_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,3,weighted_adaptive,ENT,Weighted RTT / adaptive,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_3_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,3,random_two_adaptive,ENT,Random-Two / adaptive,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_3_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,4,ecmp,ENT,ECMP,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_4_ECMP.csv
+sym,4,conga,ENT,CONGA,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_4_Conga.csv
+sym,4,weighted_fixed,ENT,Weighted RTT / fixed,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_4_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,4,weighted_adaptive,ENT,Weighted RTT / adaptive,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_4_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,4,random_two_adaptive,ENT,Random-Two / adaptive,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_4_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,5,ecmp,ENT,ECMP,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_5_ECMP.csv
+sym,5,conga,ENT,CONGA,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_5_Conga.csv
+sym,5,weighted_fixed,ENT,Weighted RTT / fixed,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_5_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,5,weighted_adaptive,ENT,Weighted RTT / adaptive,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_5_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,5,random_two_adaptive,ENT,Random-Two / adaptive,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_5_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,6,ecmp,ENT,ECMP,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819399,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_6_ECMP.csv
+sym,6,conga,ENT,CONGA,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819399,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_6_Conga.csv
+sym,6,weighted_fixed,ENT,Weighted RTT / fixed,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819399,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_6_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,6,weighted_adaptive,ENT,Weighted RTT / adaptive,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819404,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_6_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,6,random_two_adaptive,ENT,Random-Two / adaptive,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819399,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_6_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,7,ecmp,ENT,ECMP,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745464,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_7_ECMP.csv
+sym,7,conga,ENT,CONGA,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745553,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_7_Conga.csv
+sym,7,weighted_fixed,ENT,Weighted RTT / fixed,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745464,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_7_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,7,weighted_adaptive,ENT,Weighted RTT / adaptive,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745486,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_7_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,7,random_two_adaptive,ENT,Random-Two / adaptive,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745464,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_7_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,8,ecmp,ENT,ECMP,13074,13074,13074,0,0,0,0,0,0,100.0,0,0,15622704,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_8_ECMP.csv
+sym,8,conga,ENT,CONGA,13074,13074,13074,0,0,0,0,0,0,100.0,0,0,15622704,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_8_Conga.csv
+sym,8,weighted_fixed,ENT,Weighted RTT / fixed,13074,13074,13074,0,0,0,0,0,0,100.0,0,0,15622704,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_8_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,8,weighted_adaptive,ENT,Weighted RTT / adaptive,13074,13074,13074,0,0,0,0,0,0,100.0,0,0,15622704,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_8_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,8,random_two_adaptive,ENT,Random-Two / adaptive,13074,13074,13074,0,0,0,0,0,0,100.0,0,0,15622704,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_8_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+sym,9,ecmp,ENT,ECMP,14826,14826,14826,0,0,0,0,0,0,100.0,0,0,16954073,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_9_ECMP.csv
+sym,9,conga,ENT,CONGA,14826,14826,14826,0,0,0,0,0,0,100.0,0,0,16954073,0,0.0,0,0,0.0,0,conga_sym_cdf_10gbps_5s/ENT_load_9_Conga.csv
+sym,9,weighted_fixed,ENT,Weighted RTT / fixed,14826,14826,14826,0,0,0,0,0,0,100.0,0,0,16954073,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_9_WEIGHTED_ECMP_timeout_true_RTT.csv
+sym,9,weighted_adaptive,ENT,Weighted RTT / adaptive,14826,14826,14826,0,0,0,0,0,0,100.0,0,0,16954192,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_9_WEIGHTED_ECMP_timeout_false_RTT.csv
+sym,9,random_two_adaptive,ENT,Random-Two / adaptive,14826,14826,14826,0,0,0,0,0,0,100.0,0,0,16954073,0,0.0,0,0,0.0,0,rtt_sym_cdf_10gbps_5s/ENT_load_9_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+asym,1,ecmp,ENT,ECMP,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_1_ECMP.csv
+asym,1,conga,ENT,CONGA,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_1_Conga.csv
+asym,1,weighted_fixed,ENT,Weighted RTT / fixed,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_1_WEIGHTED_ECMP_timeout_true_RTT.csv
+asym,1,weighted_adaptive,ENT,Weighted RTT / adaptive,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_1_WEIGHTED_ECMP_timeout_false_RTT.csv
+asym,1,random_two_adaptive,ENT,Random-Two / adaptive,1678,1678,1678,0,0,0,0,0,0,100.0,0,0,2202108,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_1_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+asym,2,ecmp,ENT,ECMP,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_2_ECMP.csv
+asym,2,conga,ENT,CONGA,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_2_Conga.csv
+asym,2,weighted_fixed,ENT,Weighted RTT / fixed,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_2_WEIGHTED_ECMP_timeout_true_RTT.csv
+asym,2,weighted_adaptive,ENT,Weighted RTT / adaptive,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_2_WEIGHTED_ECMP_timeout_false_RTT.csv
+asym,2,random_two_adaptive,ENT,Random-Two / adaptive,3211,3211,3211,0,0,0,0,0,0,100.0,0,0,2585243,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_2_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+asym,3,ecmp,ENT,ECMP,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_3_ECMP.csv
+asym,3,conga,ENT,CONGA,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_3_Conga.csv
+asym,3,weighted_fixed,ENT,Weighted RTT / fixed,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_3_WEIGHTED_ECMP_timeout_true_RTT.csv
+asym,3,weighted_adaptive,ENT,Weighted RTT / adaptive,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_3_WEIGHTED_ECMP_timeout_false_RTT.csv
+asym,3,random_two_adaptive,ENT,Random-Two / adaptive,4795,4795,4795,0,0,0,0,0,0,100.0,0,0,7230447,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_3_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+asym,4,ecmp,ENT,ECMP,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_4_ECMP.csv
+asym,4,conga,ENT,CONGA,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_4_Conga.csv
+asym,4,weighted_fixed,ENT,Weighted RTT / fixed,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_4_WEIGHTED_ECMP_timeout_true_RTT.csv
+asym,4,weighted_adaptive,ENT,Weighted RTT / adaptive,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_4_WEIGHTED_ECMP_timeout_false_RTT.csv
+asym,4,random_two_adaptive,ENT,Random-Two / adaptive,6549,6549,6549,0,0,0,0,0,0,100.0,0,0,8870104,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_4_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+asym,5,ecmp,ENT,ECMP,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_5_ECMP.csv
+asym,5,conga,ENT,CONGA,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_5_Conga.csv
+asym,5,weighted_fixed,ENT,Weighted RTT / fixed,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451918,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_5_WEIGHTED_ECMP_timeout_true_RTT.csv
+asym,5,weighted_adaptive,ENT,Weighted RTT / adaptive,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451943,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_5_WEIGHTED_ECMP_timeout_false_RTT.csv
+asym,5,random_two_adaptive,ENT,Random-Two / adaptive,8057,8057,8057,0,0,0,0,0,0,100.0,0,0,9451913,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_5_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+asym,6,ecmp,ENT,ECMP,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819425,26,0.0002199768601264444,26,0,0.001652437443871154,0,conga_asym_cdf_10gbps_5s/ENT_load_6_ECMP.csv
+asym,6,conga,ENT,CONGA,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819855,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_6_Conga.csv
+asym,6,weighted_fixed,ENT,Weighted RTT / fixed,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819450,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_6_WEIGHTED_ECMP_timeout_true_RTT.csv
+asym,6,weighted_adaptive,ENT,Weighted RTT / adaptive,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819470,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_6_WEIGHTED_ECMP_timeout_false_RTT.csv
+asym,6,random_two_adaptive,ENT,Random-Two / adaptive,9607,9607,9607,0,0,0,0,0,0,100.0,0,0,11819399,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_6_POWER_OF_2_RANDOM_timeout_false_RTT.csv
+asym,7,ecmp,ENT,ECMP,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13746008,299,0.0021751769677421985,311,0,0.016997392686102206,0,conga_asym_cdf_10gbps_5s/ENT_load_7_ECMP.csv
+asym,7,conga,ENT,CONGA,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745824,0,0.0,0,0,0.0,0,conga_asym_cdf_10gbps_5s/ENT_load_7_Conga.csv
+asym,7,weighted_fixed,ENT,Weighted RTT / fixed,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13746779,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_7_WEIGHTED_ECMP_timeout_true_RTT.csv
+asym,7,weighted_adaptive,ENT,Weighted RTT / adaptive,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745488,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_7_WEIGHTED_ECMP_timeout_false_RTT.csv
+asym,7,random_two_adaptive,ENT,Random-Two / adaptive,11459,11459,11459,0,0,0,0,0,0,100.0,0,0,13745464,0,0.0,0,0,0.0,0,rtt_asym_cdf_10gbps_5s/ENT_load_7_POWER_OF_2_RANDOM_timeout_false_RTT.csv

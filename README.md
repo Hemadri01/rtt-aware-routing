@@ -6,7 +6,7 @@
 
 Datacenter networks provide several routes between servers. ECMP assigns each connection to one route using a hash, but that route may become congested while another has spare capacity. The idea here is to use RTT estimates obtained from TCP timestamp information to steer bursts of packets toward lower-delay paths.
 
-The original proposal has the leaf and spine switches write and read TCP timestamp information for the routing measurements. I simplified the ns-3 implementation by carrying timestamps and path information in packet tags, allowing me to study the RTT estimator and routing policies without first implementing that switch-side TCP timestamp handling. The prototype combines smoothed RTT estimates with probabilistic flowlet selection and supports fixed or RTT-derived timeouts. It runs in ns-3.48. The first 10 Gb/s ENT results compare CONGA with ECMP; the RTT evaluation is ongoing.
+The original proposal has the leaf and spine switches write and read TCP timestamp information for the routing measurements. I simplified the ns-3 implementation by carrying timestamps and path information in packet tags, allowing me to study the RTT estimator and routing policies without first implementing that switch-side TCP timestamp handling. The prototype combines smoothed RTT estimates with probabilistic flowlet selection and supports fixed or RTT-derived timeouts. It runs in ns-3.48. The current 10 Gb/s ENT evaluation compares three RTT policies with CONGA and ECMP.
 
 - [Design](#how-the-routing-works)
 - [Code](#reading-the-code)
@@ -336,7 +336,7 @@ The helper installs the module through ns-3's routing-helper interface. In the f
 
 All simulations were run on my personal **Dell Vostro laptop with an Intel Core i5-1235U processor and 16 GB of RAM**. These are the host machine's specifications; the simulated network is configured separately below.
 
-The current 10 Gb/s RTT experiments are taking **more than 24 hours of wall-clock time per simulation** on this laptop, despite a five-second traffic launch window. This limits how quickly I can complete the load sweeps.
+The 10 Gb/s RTT experiments took **more than 24 hours of wall-clock time per simulation** on this laptop, despite a five-second traffic launch window. This limits the number of runs I can complete for each configuration.
 
 The current topology has **two leaf switches, two spine switches, and four servers per leaf**. Each source leaf can reach the other leaf through either spine.
 
@@ -392,7 +392,7 @@ The analysis compares mean and tail FCT, forward TCP packet loss, application co
 
 ## Results
 
-The completed **enterprise (ENT)** experiments compare CONGA with stable per-flow ECMP on the topology above. These establish the comparison baselines for the RTT experiments. An initial RTT comparison at the available loads follows below.
+The completed **enterprise (ENT)** experiments first establish CONGA and stable per-flow ECMP as baselines. The full comparison with three RTT policies follows below.
 
 Both algorithms delivered every requested payload in all **32 runs**, with no missing, undersized, or oversized flows. This covers 73,256 transfers per algorithm in the symmetric sweep and 45,356 per algorithm in the asymmetric sweep. The FCT comparisons therefore include every input flow.
 
@@ -448,25 +448,29 @@ The root FqCoDel counters record 26 drops at asymmetric ECMP load 0.6 and 311 at
 
 The [run summary](results/ent-10gbps/run_summary.csv) contains completion, loss, and queue-drop counts for every case. [Result notes](results/ent-10gbps/README.md) identify the source notebook and supporting files.
 
-These results show a useful CONGA advantage in this ENT setup and provide completed baselines for evaluating RTT routing. They cover one trace and one routing run per load, two candidate paths, and a five-second launch window. Repeated seeds, larger fabrics, and the remaining workloads are needed to establish how consistently the gains carry over. This is not yet a reproduction of the original CONGA paper's evaluation.
+These baseline results show a useful CONGA advantage in this ENT setup. They cover one trace and one routing run per load, two candidate paths, and a five-second launch window. Repeated seeds, larger fabrics, and the remaining workloads are needed to establish how consistently the gains carry over. This is not yet a reproduction of the original CONGA paper's evaluation.
 
-### Initial RTT results at available loads
+### RTT routing against CONGA and ECMP
 
-The RTT sweep currently covers **ENT target loads 0.1–0.3** in both topologies. Weighted RTT with a fixed 500-us flowlet timeout and Random-Two with an RTT-derived timeout have completed all three loads; Weighted RTT with an RTT-derived timeout has completed loads 0.1–0.2. Each RTT policy is compared with CONGA and ECMP using the same input trace at the same load and topology. The mean-FCT plots below pool all flow sizes. They divide each algorithm's mean application FCT by CONGA's mean over the same flows, so CONGA is the reference at 1.
+The completed ENT sweep compares all five policies in **80 runs**: symmetric target loads 0.1–0.9 and asymmetric target loads 0.1–0.7. Each policy uses the same input flow identities at a given load and topology. All runs delivered every requested payload exactly, and no flows were excluded from the FCT comparisons. The figures below show mean application FCT across all sizes, divided by CONGA's mean over those same flows.
 
-![ENT symmetric fabric: overall mean application FCT for available RTT policies, CONGA, and ECMP at loads 0.1–0.3](results/ent-10gbps/rtt-preliminary/sym/overall_mean_fct_vs_load.png)
+![ENT symmetric fabric: overall mean application FCT for RTT routing, CONGA, and ECMP across loads 0.1–0.9](results/ent-10gbps/rtt-full/ENT/20261008T074640_547349Z/sym/overall_mean_fct_vs_load.png)
 
-*Symmetric fabric. Missing policy points have no completed run; the lines do not represent results at higher loads.*
+In the symmetric fabric, CONGA has the lowest overall mean FCT at every tested load. At load 0.9, Random-Two with an adaptive timeout averages **7.09 ms**, close to CONGA's **6.94 ms** and below ECMP's **7.76 ms**. The weighted RTT policy with an adaptive timeout falls behind the other policies at higher loads.
 
-![ENT asymmetric fabric: overall mean application FCT for available RTT policies, CONGA, and ECMP at loads 0.1–0.3](results/ent-10gbps/rtt-preliminary/asym/overall_mean_fct_vs_load.png)
+![ENT asymmetric fabric: overall mean application FCT for RTT routing, CONGA, and ECMP across loads 0.1–0.7](results/ent-10gbps/rtt-full/ENT/20261008T074640_547349Z/asym/overall_mean_fct_vs_load.png)
 
-*Asymmetric fabric. The reduced Leaf 0–Spine 0 link remains at 5 Gb/s.*
+In the asymmetric fabric, Random-Two with an adaptive timeout has the lowest overall mean FCT at loads **0.2, 0.6, and 0.7**. At 0.7 it averages **11.05 ms**, compared with **11.37 ms** for CONGA and **25.76 ms** for ECMP. The tail result differs: Random-Two's overall p99 is **290 ms**, versus **233 ms** for CONGA. Mean and tail FCT by flow size are shown below.
 
-Among the policies with results at each load, CONGA has the lowest overall mean FCT in five of the six topology/load combinations. At asymmetric load 0.2, RTT Random-Two is the exception: **1.66 ms** versus **1.77 ms** for CONGA and **2.21 ms** for ECMP. Its p99 FCT there is **58.2 ms**, slightly above CONGA's **55.8 ms**. At symmetric load 0.3, CONGA averages **3.36 ms**, compared with **3.91 ms** for the best available RTT policy and **4.20 ms** for ECMP.
+![ENT asymmetric fabric: mean and p99 application FCT by flow size for RTT routing, CONGA, and ECMP](results/ent-10gbps/rtt-full/ENT/20261008T074640_547349Z/asym/fct_vs_load.png)
 
-All **16 available RTT runs** delivered every requested payload exactly, with no recorded forward TCP packet loss or queue drops. The 12 matching CONGA/ECMP runs also passed these checks; no flows were excluded from the FCT comparisons. The [RTT comparison summary](results/ent-10gbps/rtt-preliminary/fct_summary.csv) and [validation counts](results/ent-10gbps/rtt-preliminary/run_summary.csv) retain the values for every available case.
+The three RTT policies have **no recorded forward TCP packet loss or queue drops** in these runs. ECMP has 26 and 299 lost forward packets at asymmetric loads 0.6 and 0.7, respectively; all flows still finish with the requested payload. The figure uses FlowMonitor's forward-connection loss counters.
 
-This is a first look at low loads, using one trace and one run per case. It does not establish how the policies compare as congestion rises. The RTT CSV logger also understates utilization on the 5 Gb/s link because it divides by 10 Gb/s; the comparison notebook recalculates utilization from recorded bytes and the correct link rate. This reporting issue does not affect the application FCT figures above. The remaining loads and repeated seeds are still needed before drawing general performance conclusions.
+![ENT asymmetric fabric: forward TCP packet loss for RTT routing, CONGA, and ECMP](results/ent-10gbps/rtt-full/ENT/20261008T074640_547349Z/asym/forward_packet_loss_vs_load.png)
+
+The [illustrated results notebook](analysis/rtt_cdf_10gbps_5s_results.ipynb) contains **all 65 figures with explanations**, including every load's FCT distribution, tail, and individual-link utilization. The [figure index](results/ent-10gbps/rtt-full/ENT/20261008T074640_547349Z/INDEX.md), [FCT summary](results/ent-10gbps/rtt-full/ENT/20261008T074640_547349Z/fct_summary.csv), and [run validation](results/ent-10gbps/rtt-full/ENT/20261008T074640_547349Z/run_summary.csv) provide the underlying values. The [export notebook](analysis/compare_rtt_readme_cdf_10gbps_5s.ipynb) documents how the comparison was produced from the full simulator outputs.
+
+These are single-trace, single-run comparisons in a two-path fabric. The RTT CSV logger understates utilization on the 5 Gb/s link because it uses a 10 Gb/s denominator; the exported heatmaps recalculate it from bytes and the physical capacity. This reporting issue does not affect FCT. Repeated seeds and larger fabrics are needed to test whether these patterns persist.
 
 ## Engineering and validation
 
@@ -526,7 +530,7 @@ These runners sweep loads 0.1–0.9 for the symmetric fabric and 0.1–0.7 for t
 ./conga_asym_cdf_10gbps_5s_all.sh ENT
 ~~~
 
-Reuse the generated inputs across policies. In `8_hosts_v9(prob1)/compare_conga_ecmp_cdf_10gbps_5s.ipynb`, select `WORKLOAD = "ENT"` to check delivery and export the figures shown here. The same notebook supports `"DM"` when those outputs are available. Analysis reads saved results; it does not launch simulations.
+Reuse the generated inputs across policies. In `8_hosts_v9(prob1)/compare_conga_ecmp_cdf_10gbps_5s.ipynb`, select `WORKLOAD = "ENT"` to check the CONGA/ECMP baselines. Run `8_hosts_v9(prob1)/compare_rtt_readme_cdf_10gbps_5s.ipynb` to validate and export the five-policy comparison; the copied notebook is under [analysis](analysis/). Both support `"DM"` when its outputs are available. Analysis reads saved results; it does not launch simulations.
 
 To regenerate the earlier TrafPy benchmarks, use the separate TrafPy repository and its documented environment. Exact repository revisions will accompany the published results.
 
