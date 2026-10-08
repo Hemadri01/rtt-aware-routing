@@ -41,26 +41,26 @@ The flowchart shows the **implemented ns-3 data and ACK handling**. Tags carry t
 
 ~~~mermaid
 flowchart TB
-    subgraph forwarding["Flowlet forwarding at the source leaf"]
-        packet["Outgoing data packet"] --> lookup["Identify flow and look up cached flowlet"]
-        lookup --> active{"Flowlet exists and idle gap is within timeout?"}
-        active -->|Yes| reuse["Keep cached uplink"]
-        active -->|No| metrics["Read candidate RTT estimates"]
-        metrics --> select["Select uplink using configured policy"]
-        reuse --> record["Record uplink and last activity time"]
+    subgraph forwarding["Data forwarding"]
+        packet["Data packet"] --> lookup["Find cached flowlet"]
+        lookup --> active{"Flowlet within timeout?"}
+        active -->|Yes| reuse["Reuse uplink"]
+        active -->|No| metrics["Read RTT estimates"]
+        metrics --> select["Choose uplink"]
+        reuse --> record["Save uplink and time"]
         select --> record
-        record --> forward["Attach timestamp and path tag; forward data"]
+        record --> forward["Tag and forward"]
     end
 
-    subgraph measurement["RTT feedback at the source leaf"]
-        feedback["ACK with valid RTT tag"] --> associate["Read original uplink and transmit time from tag"]
-        associate --> sample["Calculate elapsed-time RTT sample"]
-        sample --> smooth["Initialize estimate or update EWMA"]
-        smooth --> estimates[("Per-uplink RTT estimates")]
+    subgraph measurement["ACK feedback"]
+        feedback["Tagged ACK"] --> associate["Read path and time"]
+        associate --> sample["Compute RTT sample"]
+        sample --> smooth["Initialize/update estimate"]
+        smooth --> estimates[("RTT by uplink")]
     end
 
-    estimates -.->|Selection input| metrics
-    estimates -.->|Current uplink RTT when adaptive timeout is enabled| active
+    estimates -.->|Path choice| metrics
+    estimates -.->|Adaptive timeout| active
 
     classDef decision fill:#fff3cd,stroke:#997404,color:#332701;
     classDef routing fill:#dbeafe,stroke:#2563eb,color:#172554;
@@ -382,9 +382,9 @@ The fixed-500-us Random-Two variant was tested in the earlier setup but excluded
 
 ### Traffic and measurements
 
-The DM and ENT traces are generated using flow-size CDF points digitized from the CONGA paper, with Poisson arrivals and cross-leaf destinations. Every algorithm reuses the same trace for a given workload and load. Generation manifests record both requested and realized offered load, since a heavy-tailed sample can differ substantially from its target.
+The DM and ENT traces come from this project's CDF generator, using flow-size CDF points digitized from the CONGA paper, Poisson arrivals, and cross-leaf destinations. I chose these paper-derived workloads to check whether the CONGA implementation behaves plausibly under similar flow-size distributions before comparing it with RTT routing. Every algorithm reuses the same generated trace for a given workload and load. Generation manifests record both requested and realized offered load, since a heavy-tailed sample can differ substantially from its target.
 
-Earlier experiments used 100 Mb/s links and TrafPy's private-enterprise, commercial-cloud, university, and social-media-cloud benchmarks. The DM/ENT generator is independent of TrafPy.
+**The results below do not use TrafPy traces.** Earlier experiments used 100 Mb/s links and TrafPy's private-enterprise, commercial-cloud, university, and social-media-cloud benchmarks. Matching the paper's flow-size CDF alone does not reproduce its topology, traffic duration, or full evaluation, so these runs remain a check of the implementation rather than proof that it reproduces the paper's results.
 
 **Application FCT** runs from the scheduled transfer start until the requested payload has arrived. Each transfer is checked against its input size. Incomplete transfers are reported separately and have no completion FCT; their exclusion from FCT statistics must be considered alongside the delivery results.
 
@@ -392,7 +392,7 @@ The analysis compares mean and tail FCT, forward TCP packet loss, application co
 
 ## Results
 
-The completed **enterprise (ENT)** experiments first establish CONGA and stable per-flow ECMP as baselines. The full comparison with three RTT policies follows below.
+The completed **enterprise (ENT)** experiments use the CONGA-paper-derived CDF generator described above, not TrafPy. They first establish CONGA and stable per-flow ECMP as baselines. The full comparison with three RTT policies follows below.
 
 Both algorithms delivered every requested payload in all **32 runs**, with no missing, undersized, or oversized flows. This covers 73,256 transfers per algorithm in the symmetric sweep and 45,356 per algorithm in the asymmetric sweep. The FCT comparisons therefore include every input flow.
 

@@ -1,5 +1,10 @@
 # Complete ENT comparison
 
+These runs use ENT traces sampled by this project's generator from flow-size CDF
+points digitized from the CONGA paper. They do not use TrafPy workloads. The
+paper-derived distribution helps check the CONGA implementation's behavior;
+this smaller experiment does not reproduce the paper's full evaluation.
+
 The [results notebook](../../../analysis/rtt_cdf_10gbps_5s_results.ipynb) presents
 all 65 figures with explanations. Its saved outputs include the images, and it
 can be rerun using the bundled export. The [export notebook](../../../analysis/compare_rtt_readme_cdf_10gbps_5s.ipynb)
