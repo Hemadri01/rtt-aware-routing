@@ -40,8 +40,9 @@ The source leaf keeps each active flowlet on its selected path. A new flow or an
 The flowchart shows the **implemented ns-3 data and ACK handling**. Tags carry the timing and path metadata; TCP timestamp handling is the intended counterpart in the original proposal.
 
 ~~~mermaid
-flowchart TB
+flowchart LR
     subgraph forwarding["Data forwarding"]
+        direction TB
         packet["Data packet"] --> lookup["Find cached flowlet"]
         lookup --> active{"Flowlet within timeout?"}
         active -->|Yes| reuse["Reuse uplink"]
@@ -53,14 +54,14 @@ flowchart TB
     end
 
     subgraph measurement["ACK feedback"]
+        direction TB
         feedback["Tagged ACK"] --> associate["Read path and time"]
         associate --> sample["Compute RTT sample"]
         sample --> smooth["Initialize/update estimate"]
         smooth --> estimates[("RTT by uplink")]
     end
 
-    estimates -.->|Path choice| metrics
-    estimates -.->|Adaptive timeout| active
+    forwarding -.->|Returning ACK| measurement
 
     classDef decision fill:#fff3cd,stroke:#997404,color:#332701;
     classDef routing fill:#dbeafe,stroke:#2563eb,color:#172554;
@@ -70,7 +71,7 @@ flowchart TB
     class feedback,associate,sample,smooth,estimates timing;
 ~~~
 
-The timeout is either fixed at 500 us or derived from the current uplink's effective RTT. A path without a measurement uses its configured base RTT. The feedback branch runs independently: updating an estimate does not immediately move an active flowlet.
+The timeout is either fixed at 500 us or derived from the current uplink's effective RTT. A path without a measurement uses its configured base RTT. The feedback branch updates the estimates used for later path choices and adaptive timeouts; it does not immediately move an active flowlet.
 
 ### Scope and state
 
